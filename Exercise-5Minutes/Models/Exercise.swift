@@ -5,8 +5,8 @@ struct Exercise: Identifiable {
     let name: String
     let duration: Int // in seconds
     let category: Category
-    let difficulty: Difficulty
-    let gifName: String
+    let easyGifName: String
+    let hardGifName: String
     
     enum Category: String, CaseIterable {
         case chest = "Chest"
@@ -21,12 +21,11 @@ struct Exercise: Identifiable {
         case restWalk = "Rest-Walk"
     }
     
-    enum Difficulty: String {
-        case easy = "Easy"
-        case hard = "Hard"
+    var easyGifPath: String {
+        "Exercises/\(category.rawValue)/Easy/\(easyGifName)"
     }
     
-    var gifPath: String {
-        "Exercises/\(category.rawValue)/\(difficulty.rawValue)/\(gifName)"
+    var hardGifPath: String {
+        "Exercises/\(category.rawValue)/Hard/\(hardGifName)"
     }
 } 

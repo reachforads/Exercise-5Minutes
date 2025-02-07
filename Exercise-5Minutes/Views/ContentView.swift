@@ -6,14 +6,31 @@ import SwiftUI
 struct ContentView: View {
     // MARK: - State
     @State private var isCountingDown = false
-    @State private var countdownSeconds = 30
+    @State private var countdownSeconds = 5
     @State private var timer: Timer?
     @State private var isWorkoutStarted = false
     @StateObject private var exerciseManager = ExerciseManager.shared
     
+    // Force start from Day 1 for now
+    @State private var currentDay: Int = 1  // Hardcode to Day 1
+    
     // MARK: - Sample Exercises
     var exercises: [Exercise] {
         exerciseManager.getCurrentDayExercises()
+    }
+    
+    // Helper to get day title
+    private func getDayTitle() -> String {
+        switch currentDay {
+        case 1: return "Chest, Triceps, Abs"  // Monday
+        case 2: return "Back, Biceps, Abs"    // Tuesday
+        case 3: return "Legs, Abs"            // Wednesday
+        case 4: return "Shoulders, Abs"        // Thursday
+        case 5: return "HIIT, Abs"            // Friday
+        case 6: return "Yoga"                 // Saturday
+        case 7: return "Rest-Walk"            // Sunday
+        default: return ""
+        }
     }
     
     // MARK: - Body
@@ -29,7 +46,7 @@ struct ContentView: View {
                     .padding(.top, 40)
                 
                 if isCountingDown {
-                    // Countdown view
+                    // Countdown view with exercises
                     VStack(spacing: 20) {
                         Text("\(countdownSeconds)")
                             .font(.system(size: 72, weight: .bold))
@@ -41,6 +58,12 @@ struct ContentView: View {
                         Text("Get Ready!")
                             .font(.title2)
                             .foregroundColor(.gray)
+                        
+                        // Day's workout title
+                        Text("Day \(currentDay): \(getDayTitle())")
+                            .font(.headline)
+                            .foregroundColor(.blue)
+                            .padding(.top)
                             
                         // Exercise list preview
                         VStack(alignment: .leading, spacing: 10) {
@@ -71,36 +94,6 @@ struct ContentView: View {
                     }
                 } else {
                     Spacer()
-                    
-                    // Difficulty selector
-                    Menu {
-                        Button(action: {
-                            exerciseManager.updateDifficulty(.easy)
-                        }) {
-                            HStack {
-                                Text("Easy")
-                                if exerciseManager.selectedDifficulty == .easy {
-                                    Image(systemName: "checkmark")
-                                }
-                            }
-                        }
-                        
-                        Button(action: {
-                            exerciseManager.updateDifficulty(.hard)
-                        }) {
-                            HStack {
-                                Text("Hard")
-                                if exerciseManager.selectedDifficulty == .hard {
-                                    Image(systemName: "checkmark")
-                                }
-                            }
-                        }
-                    } label: {
-                        Text("Difficulty: \(exerciseManager.selectedDifficulty.rawValue)")
-                            .font(.headline)
-                            .foregroundColor(.blue)
-                            .padding()
-                    }
                     
                     // Go button
                     Button(action: {

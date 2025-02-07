@@ -4,10 +4,11 @@ struct WorkoutView: View {
     // MARK: - Properties
     let exercises: [Exercise]
     @State private var currentExerciseIndex = 0
-    @State private var exerciseTimeRemaining = 30
+    @State private var exerciseTimeRemaining = 5
     @State private var timer: Timer?
     @State private var isWorkoutComplete = false
     @StateObject private var exerciseManager = ExerciseManager.shared
+    @State private var showingHardVersion = false
     
     // MARK: - Body
     var body: some View {
@@ -78,6 +79,45 @@ struct WorkoutView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 }
+            }
+            
+            // Exercise GIF view with swipe gesture
+            if !exercises.isEmpty {
+                // GIF Image view (you'll need to implement this)
+                Image(showingHardVersion ? 
+                      exercises[currentExerciseIndex].hardGifPath : 
+                      exercises[currentExerciseIndex].easyGifPath)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 200)
+                    .gesture(
+                        DragGesture(minimumDistance: 50)
+                            .onEnded { gesture in
+                                if gesture.translation.width < 0 {
+                                    // Swipe left - show hard version
+                                    withAnimation {
+                                        showingHardVersion = true
+                                    }
+                                } else if gesture.translation.width > 0 {
+                                    // Swipe right - show easy version
+                                    withAnimation {
+                                        showingHardVersion = false
+                                    }
+                                }
+                            }
+                    )
+                
+                // Difficulty indicator
+                HStack {
+                    Text(showingHardVersion ? "Hard" : "Easy")
+                        .font(.caption)
+                        .foregroundColor(.blue)
+                    
+                    Image(systemName: "arrow.left.arrow.right")
+                        .foregroundColor(.gray)
+                        .font(.caption)
+                }
+                .padding(.top, 5)
             }
             
             Spacer()
