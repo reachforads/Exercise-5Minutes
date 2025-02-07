@@ -20,37 +20,37 @@ class ExerciseManager: ObservableObject {
     // MARK: - Exercise Data
     private let exercises: [Exercise.Category: [Exercise]] = [
         .chest: [
-            Exercise(name: "Push-ups", duration: 30, category: .chest, 
+            Exercise(name: "Push-ups", duration: 5, category: .chest, 
                     easyGifName: "push_ups_easy.gif", hardGifName: "push_ups_hard.gif"),
-            Exercise(name: "Chest Press", duration: 30, category: .chest, 
+            Exercise(name: "Chest Press", duration: 5, category: .chest, 
                     easyGifName: "chest_press_easy.gif", hardGifName: "chest_press_hard.gif"),
-            Exercise(name: "Chest Flys", duration: 30, category: .chest, 
+            Exercise(name: "Chest Flys", duration: 5, category: .chest, 
                     easyGifName: "chest_flys_easy.gif", hardGifName: "chest_flys_hard.gif")
         ],
         .triceps: [
-            Exercise(name: "Tricep Dips", duration: 30, category: .triceps, 
+            Exercise(name: "Tricep Dips", duration: 5, category: .triceps, 
                     easyGifName: "tricep_dips_easy.gif", hardGifName: "tricep_dips_hard.gif"),
-            Exercise(name: "Tricep Extensions", duration: 30, category: .triceps, 
+            Exercise(name: "Tricep Extensions", duration: 5, category: .triceps, 
                     easyGifName: "tricep_extensions_easy.gif", hardGifName: "tricep_extensions_hard.gif")
         ],
         .back: [
-            Exercise(name: "Rows", duration: 30, category: .back, 
+            Exercise(name: "Rows", duration: 5, category: .back, 
                     easyGifName: "rows_easy.gif", hardGifName: "rows_hard.gif"),
-            Exercise(name: "Lat Pulldowns", duration: 30, category: .back, 
+            Exercise(name: "Lat Pulldowns", duration: 5, category: .back, 
                     easyGifName: "lat_pulldowns_easy.gif", hardGifName: "lat_pulldowns_hard.gif")
         ],
         .biceps: [
-            Exercise(name: "Bicep Curls", duration: 30, category: .biceps, 
+            Exercise(name: "Bicep Curls", duration: 5, category: .biceps, 
                     easyGifName: "bicep_curls_easy.gif", hardGifName: "bicep_curls_hard.gif"),
-            Exercise(name: "Hammer Curls", duration: 30, category: .biceps, 
+            Exercise(name: "Hammer Curls", duration: 5, category: .biceps, 
                     easyGifName: "hammer_curls_easy.gif", hardGifName: "hammer_curls_hard.gif")
         ],
         .abs: [
-            Exercise(name: "Crunches", duration: 30, category: .abs, 
+            Exercise(name: "Crunches", duration: 5, category: .abs, 
                     easyGifName: "crunches_easy.gif", hardGifName: "crunches_hard.gif"),
-            Exercise(name: "Plank", duration: 30, category: .abs, 
+            Exercise(name: "Plank", duration: 5, category: .abs, 
                     easyGifName: "plank_easy.gif", hardGifName: "plank_hard.gif"),
-            Exercise(name: "Leg Raises", duration: 30, category: .abs, 
+            Exercise(name: "Leg Raises", duration: 5, category: .abs, 
                     easyGifName: "leg_raises_easy.gif", hardGifName: "leg_raises_hard.gif")
         ]
     ]

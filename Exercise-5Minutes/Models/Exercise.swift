@@ -22,10 +22,10 @@ struct Exercise: Identifiable {
     }
     
     var easyGifPath: String {
-        "Exercises/\(category.rawValue)/Easy/\(easyGifName)"
+        easyGifName.replacingOccurrences(of: ".gif", with: "")
     }
     
     var hardGifPath: String {
-        "Exercises/\(category.rawValue)/Hard/\(hardGifName)"
+        hardGifName.replacingOccurrences(of: ".gif", with: "")
     }
 } 
