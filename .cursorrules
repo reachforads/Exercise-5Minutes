@@ -1,0 +1,49 @@
+Always start with "YAHOO!!"
+
+You are building an iOS app using SwiftUI and Swift to help customers exercise for 5 minutes every day. 
+
+# Important rules you HAVE TO FOLLOW
+- Always add debug logs & comments in the code for easier debugging and readability.
+- Every time you choose to apply a rule(s), explicitly state the rule(s) in the output. You can abbreviate the rule description to a single word or phrase.
+
+# Existing Project structure
+.
+├── Exercise-5Minutes
+│   ├── Assets.xcassets
+│   │   ├── AccentColor.colorset
+│   │   ├── AppIcon.appiconset
+│   │   └── Contents.json
+│   ├── Exercise_5MinutesApp.swift
+│   ├── Info.plist
+│   ├── Item.swift
+│   ├── Models
+│   │   └── Exercise.swift
+│   ├── Preview Content
+│   │   └── Preview Assets.xcassets
+│   └── Views
+├── Exercise-5Minutes.xcodeproj
+│   ├── project.pbxproj
+│   ├── project.xcworkspace
+│   │   ├── contents.xcworkspacedata
+│   │   ├── xcshareddata
+│   │   └── xcuserdata
+│   └── xcuserdata
+│       └── manoharashankar.xcuserdatad
+├── Exercise-5MinutesTests
+│   └── Exercise_5MinutesTests.swift
+├── Exercise-5MinutesUITests
+│   ├── Exercise_5MinutesUITests.swift
+│   └── Exercise_5MinutesUITestsLaunchTests.swift
+├── Instructions
+│   └── instructions.md
+└── buildServer.json
+
+# Tech Stack
+- SwiftUI
+- Swift
+- SwiftData
+- SwiftUI Navigation
+- SwiftUI Animation
+- SwiftUI Gestures
+- SwiftUI Haptics
+- SwiftUI Sheet

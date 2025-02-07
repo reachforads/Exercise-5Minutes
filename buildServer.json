@@ -1,0 +1,19 @@
+{
+	"name": "xcode build server",
+	"version": "0.2",
+	"bspVersion": "2.0",
+	"languages": [
+		"c",
+		"cpp",
+		"objective-c",
+		"objective-cpp",
+		"swift"
+	],
+	"argv": [
+		"/usr/local/bin/xcode-build-server"
+	],
+	"workspace": "/Users/manoharashankar/Documents/iOSApps/Exercise-5Minutes/Exercise-5Minutes.xcodeproj/project.xcworkspace",
+	"build_root": "/Users/manoharashankar/Library/Developer/Xcode/DerivedData/Exercise-5Minutes-gpwtltvwoznoqwdedggpctofeifx",
+	"scheme": "Exercise-5Minutes",
+	"kind": "xcode"
+}
