@@ -1,14 +1,14 @@
 import Foundation
 
-struct Exercise: Identifiable {
-    let id = UUID()
+struct Exercise: Identifiable, Codable {
+    let id: UUID
     let name: String
     let duration: Int // in seconds
     let category: Category
-    let easyGifName: String
-    let hardGifName: String
+    let easyGifURL: URL
+    let hardGifURL: URL
     
-    enum Category: String, CaseIterable {
+    enum Category: String, Codable, CaseIterable {
         case chest = "Chest"
         case triceps = "Triceps"
         case back = "Back"
@@ -19,13 +19,5 @@ struct Exercise: Identifiable {
         case hiit = "HIIT"
         case yoga = "Yoga"
         case restWalk = "Rest-Walk"
-    }
-    
-    var easyGifPath: String {
-        easyGifName.replacingOccurrences(of: ".gif", with: "")
-    }
-    
-    var hardGifPath: String {
-        hardGifName.replacingOccurrences(of: ".gif", with: "")
     }
 } 

@@ -10,6 +10,8 @@
 		9B498A602D55F29A0072733E /* ExerciseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B498A5F2D55F29A0072733E /* ExerciseManager.swift */; };
 		9B498A622D5602350072733E /* GIFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B498A612D5602350072733E /* GIFImageView.swift */; };
 		9B51BB022D55CAF500A778A1 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B51BB012D55CAF500A778A1 /* WorkoutView.swift */; };
+		9B5F35B52D5DD95E005BED7C /* ExerciseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5F35B42D5DD95E005BED7C /* ExerciseService.swift */; };
+		9B5F35B82D5DE12C005BED7C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9B5F35B72D5DE12C005BED7C /* SDWebImageSwiftUI */; };
 		9BB5D85B2D54AE470039A114 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB5D8582D54ACF70039A114 /* Exercise.swift */; };
 		9BB5D85C2D54AE4C0039A114 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB5D8562D54AB600039A114 /* ContentView.swift */; };
 		9BE12CC42D4F68DE00D969AF /* Exercise_5MinutesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE12CC32D4F68DE00D969AF /* Exercise_5MinutesApp.swift */; };
@@ -41,6 +43,7 @@
 		9B498A5F2D55F29A0072733E /* ExerciseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseManager.swift; sourceTree = "<group>"; };
 		9B498A612D5602350072733E /* GIFImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFImageView.swift; sourceTree = "<group>"; };
 		9B51BB012D55CAF500A778A1 /* WorkoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		9B5F35B42D5DD95E005BED7C /* ExerciseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExerciseService.swift; path = Services/ExerciseService.swift; sourceTree = "<group>"; };
 		9B76B6342D5346D70011AB4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9BB5D8562D54AB600039A114 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9BB5D8582D54ACF70039A114 /* Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B5F35B82D5DE12C005BED7C /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B5F35B32D5DD940005BED7C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9B5F35B42D5DD95E005BED7C /* ExerciseService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		9BB5D8552D54AB080039A114 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +134,7 @@
 		9BE12CC22D4F68DE00D969AF /* Exercise-5Minutes */ = {
 			isa = PBXGroup;
 			children = (
+				9B5F35B32D5DD940005BED7C /* Services */,
 				9BB5D85A2D54AD060039A114 /* Models */,
 				9BB5D8552D54AB080039A114 /* Views */,
 				9B76B6342D5346D70011AB4B /* Info.plist */,
@@ -173,6 +186,9 @@
 			dependencies = (
 			);
 			name = "Exercise-5Minutes";
+			packageProductDependencies = (
+				9B5F35B72D5DE12C005BED7C /* SDWebImageSwiftUI */,
+			);
 			productName = "Exercise-5Minutes";
 			productReference = 9BE12CC02D4F68DE00D969AF /* Exercise-5Minutes.app */;
 			productType = "com.apple.product-type.application";
@@ -245,6 +261,9 @@
 				Base,
 			);
 			mainGroup = 9BE12CB72D4F68DE00D969AF;
+			packageReferences = (
+				9B5F35B62D5DE12C005BED7C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = 9BE12CC12D4F68DE00D969AF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -290,6 +309,7 @@
 				9BB5D85C2D54AE4C0039A114 /* ContentView.swift in Sources */,
 				9BB5D85B2D54AE470039A114 /* Exercise.swift in Sources */,
 				9B498A602D55F29A0072733E /* ExerciseManager.swift in Sources */,
+				9B5F35B52D5DD95E005BED7C /* ExerciseService.swift in Sources */,
 				9B498A622D5602350072733E /* GIFImageView.swift in Sources */,
 				9BE12CC42D4F68DE00D969AF /* Exercise_5MinutesApp.swift in Sources */,
 				9B51BB022D55CAF500A778A1 /* WorkoutView.swift in Sources */,
@@ -624,6 +644,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9B5F35B62D5DE12C005BED7C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9B5F35B72D5DE12C005BED7C /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9B5F35B62D5DE12C005BED7C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9BE12CB82D4F68DE00D969AF /* Project object */;
 }

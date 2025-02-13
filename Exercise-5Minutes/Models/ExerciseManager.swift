@@ -17,41 +17,125 @@ class ExerciseManager: ObservableObject {
     // Cache validation
     private var lastCacheDate: Date?
     
+    // Base URL for exercise GIFs
+    private let baseGifURL = "https://firebasestorage.googleapis.com/v0/b/exercise-5minutes-fecad.firebasestorage.app/o"
+    
+    // MARK: - URL Helpers
+    private func makeGifURL(category: Exercise.Category, difficulty: Difficulty, filename: String) -> URL {
+        // Create and encode each path component separately
+        let pathComponents = [
+            "Exercises",
+            category.rawValue,
+            difficulty.rawValue,
+            filename
+        ]
+        
+        // Join components with forward slashes and encode the entire path
+        let path = pathComponents.joined(separator: "/")
+        let encodedPath = path.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed.subtracting(CharacterSet(charactersIn: "/"))) ?? path
+        
+        print("DEBUG: Original path - \(path)")
+        print("DEBUG: Encoded path - \(encodedPath)")
+        
+        // Add query parameters
+        let queryItems = [
+            URLQueryItem(name: "alt", value: "media"),
+            URLQueryItem(name: "token", value: "81d652dc-4a08-4cea-94a5-d16ba55431a4")
+        ]
+        
+        // Construct URL components
+        var components = URLComponents(string: "\(baseGifURL)/\(encodedPath)")!
+        components.queryItems = queryItems
+        
+        // Debug log for URL construction
+        print("DEBUG: Constructed URL - \(components.url?.absoluteString ?? "invalid URL")")
+        
+        return components.url!
+    }
+    
     // MARK: - Exercise Data
-    private let exercises: [Exercise.Category: [Exercise]] = [
+    private lazy var exercises: [Exercise.Category: [Exercise]] = [
         .chest: [
-            Exercise(name: "Push-ups", duration: 5, category: .chest, 
-                    easyGifName: "push_ups_easy.gif", hardGifName: "push_ups_hard.gif"),
-            Exercise(name: "Chest Press", duration: 5, category: .chest, 
-                    easyGifName: "chest_press_easy.gif", hardGifName: "chest_press_hard.gif"),
-            Exercise(name: "Chest Flys", duration: 5, category: .chest, 
-                    easyGifName: "chest_flys_easy.gif", hardGifName: "chest_flys_hard.gif")
+            Exercise(id: UUID(), 
+                    name: "Push-ups", 
+                    duration: 5, 
+                    category: .chest,
+                    easyGifURL: makeGifURL(category: .chest, difficulty: .easy, filename: "push_ups_easy.gif"),
+                    hardGifURL: makeGifURL(category: .chest, difficulty: .hard, filename: "push_ups_hard.gif")),
+            Exercise(id: UUID(), 
+                    name: "Chest Press", 
+                    duration: 5, 
+                    category: .chest,
+                    easyGifURL: makeGifURL(category: .chest, difficulty: .easy, filename: "chest_press_easy.gif"),
+                    hardGifURL: makeGifURL(category: .chest, difficulty: .hard, filename: "chest_press_hard.gif")),
+            Exercise(id: UUID(), 
+                    name: "Chest Flys", 
+                    duration: 5, 
+                    category: .chest,
+                    easyGifURL: makeGifURL(category: .chest, difficulty: .easy, filename: "chest_flys_easy.gif"),
+                    hardGifURL: makeGifURL(category: .chest, difficulty: .hard, filename: "chest_flys_hard.gif"))
         ],
         .triceps: [
-            Exercise(name: "Tricep Dips", duration: 5, category: .triceps, 
-                    easyGifName: "tricep_dips_easy.gif", hardGifName: "tricep_dips_hard.gif"),
-            Exercise(name: "Tricep Extensions", duration: 5, category: .triceps, 
-                    easyGifName: "tricep_extensions_easy.gif", hardGifName: "tricep_extensions_hard.gif")
+            Exercise(id: UUID(), 
+                    name: "Tricep Dips", 
+                    duration: 5, 
+                    category: .triceps,
+                    easyGifURL: makeGifURL(category: .triceps, difficulty: .easy, filename: "tricep_dips_easy.gif"),
+                    hardGifURL: makeGifURL(category: .triceps, difficulty: .hard, filename: "tricep_dips_hard.gif")),
+            Exercise(id: UUID(), 
+                    name: "Tricep Extensions", 
+                    duration: 5, 
+                    category: .triceps,
+                    easyGifURL: makeGifURL(category: .triceps, difficulty: .easy, filename: "tricep_extensions_easy.gif"),
+                    hardGifURL: makeGifURL(category: .triceps, difficulty: .hard, filename: "tricep_extensions_hard.gif"))
         ],
         .back: [
-            Exercise(name: "Rows", duration: 5, category: .back, 
-                    easyGifName: "rows_easy.gif", hardGifName: "rows_hard.gif"),
-            Exercise(name: "Lat Pulldowns", duration: 5, category: .back, 
-                    easyGifName: "lat_pulldowns_easy.gif", hardGifName: "lat_pulldowns_hard.gif")
+            Exercise(id: UUID(), 
+                    name: "Rows", 
+                    duration: 5, 
+                    category: .back,
+                    easyGifURL: makeGifURL(category: .back, difficulty: .easy, filename: "rows_easy.gif"),
+                    hardGifURL: makeGifURL(category: .back, difficulty: .hard, filename: "rows_hard.gif")),
+            Exercise(id: UUID(), 
+                    name: "Lat Pulldowns", 
+                    duration: 5, 
+                    category: .back,
+                    easyGifURL: makeGifURL(category: .back, difficulty: .easy, filename: "lat_pulldowns_easy.gif"),
+                    hardGifURL: makeGifURL(category: .back, difficulty: .hard, filename: "lat_pulldowns_hard.gif"))
         ],
         .biceps: [
-            Exercise(name: "Bicep Curls", duration: 5, category: .biceps, 
-                    easyGifName: "bicep_curls_easy.gif", hardGifName: "bicep_curls_hard.gif"),
-            Exercise(name: "Hammer Curls", duration: 5, category: .biceps, 
-                    easyGifName: "hammer_curls_easy.gif", hardGifName: "hammer_curls_hard.gif")
+            Exercise(id: UUID(), 
+                    name: "Bicep Curls", 
+                    duration: 5, 
+                    category: .biceps,
+                    easyGifURL: makeGifURL(category: .biceps, difficulty: .easy, filename: "bicep_curls_easy.gif"),
+                    hardGifURL: makeGifURL(category: .biceps, difficulty: .hard, filename: "bicep_curls_hard.gif")),
+            Exercise(id: UUID(), 
+                    name: "Hammer Curls", 
+                    duration: 5, 
+                    category: .biceps,
+                    easyGifURL: makeGifURL(category: .biceps, difficulty: .easy, filename: "hammer_curls_easy.gif"),
+                    hardGifURL: makeGifURL(category: .biceps, difficulty: .hard, filename: "hammer_curls_hard.gif"))
         ],
         .abs: [
-            Exercise(name: "Crunches", duration: 5, category: .abs, 
-                    easyGifName: "crunches_easy.gif", hardGifName: "crunches_hard.gif"),
-            Exercise(name: "Plank", duration: 5, category: .abs, 
-                    easyGifName: "plank_easy.gif", hardGifName: "plank_hard.gif"),
-            Exercise(name: "Leg Raises", duration: 5, category: .abs, 
-                    easyGifName: "leg_raises_easy.gif", hardGifName: "leg_raises_hard.gif")
+            Exercise(id: UUID(), 
+                    name: "Crunches", 
+                    duration: 5, 
+                    category: .abs,
+                    easyGifURL: makeGifURL(category: .abs, difficulty: .easy, filename: "crunches_easy.gif"),
+                    hardGifURL: makeGifURL(category: .abs, difficulty: .hard, filename: "crunches_hard.gif")),
+            Exercise(id: UUID(), 
+                    name: "Plank", 
+                    duration: 5, 
+                    category: .abs,
+                    easyGifURL: makeGifURL(category: .abs, difficulty: .easy, filename: "plank_easy.gif"),
+                    hardGifURL: makeGifURL(category: .abs, difficulty: .hard, filename: "plank_hard.gif")),
+            Exercise(id: UUID(), 
+                    name: "Leg Raises", 
+                    duration: 5, 
+                    category: .abs,
+                    easyGifURL: makeGifURL(category: .abs, difficulty: .easy, filename: "leg_raises_easy.gif"),
+                    hardGifURL: makeGifURL(category: .abs, difficulty: .hard, filename: "leg_raises_hard.gif"))
         ]
     ]
     

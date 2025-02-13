@@ -84,14 +84,16 @@ struct WorkoutView: View {
             // Exercise GIF view with swipe gesture
             if !exercises.isEmpty {
                 let currentExercise = exercises[currentExerciseIndex]
-                let gifPath = showingHardVersion ? 
-                    currentExercise.hardGifPath : 
-                    currentExercise.easyGifPath
+                let gifURL = showingHardVersion ? 
+                    currentExercise.hardGifURL : 
+                    currentExercise.easyGifURL
                 
-                GIFImageView(gifName: gifPath)
+                GIFImageView(gifURL: gifURL)
                     .frame(height: 200)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
+                    .transition(.opacity)
+                    .animation(.default, value: currentExerciseIndex)
                     .gesture(
                         DragGesture(minimumDistance: 50)
                             .onEnded { gesture in
