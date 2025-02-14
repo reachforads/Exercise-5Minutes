@@ -6,52 +6,105 @@ struct GIFImageView: View {
     @State private var isLoading = false
     @State private var error: Error?
     
+    // MARK: - Constants
+    private enum Layout {
+        static let minimumTapTarget: CGFloat = 44 // Apple minimum tap target size
+        static let spacing: CGFloat = 12 // Consistent spacing
+        static let imageHeight: CGFloat = 250 // Taller for better visibility
+        static let iconSize: CGFloat = 60
+        static let cornerRadius: CGFloat = 12
+    }
+    
     var body: some View {
-        VStack {
+        VStack(spacing: Layout.spacing) {
             if isLoading {
                 ProgressView()
                     .scaleEffect(1.5)
+                    .frame(height: Layout.imageHeight)
+                    .frame(maxWidth: .infinity)
+                    .background(Color(.systemBackground))
+                    .cornerRadius(Layout.cornerRadius)
             } else {
                 AnimatedImage(url: gifURL)
                     .resizable()
                     .indicator(SDWebImageActivityIndicator.medium)
                     .transition(.fade(duration: 0.5))
                     .scaledToFit()
-                    .frame(height: 200)
+                    .frame(height: Layout.imageHeight)
+                    .frame(maxWidth: .infinity)
+                    .background(Color(.systemBackground))
+                    .cornerRadius(Layout.cornerRadius)
                     .overlay {
                         if error != nil {
-                            VStack {
-                                Image(systemName: "figure.run.circle")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 60, height: 60)
-                                    .foregroundColor(.gray)
-                                
-                                Text(error?.localizedDescription ?? "Failed to load")
-                                    .font(.caption)
-                                    .foregroundColor(.red)
-                            }
+                            errorView
+                        }
+                    }
+                    // Make the entire view tappable for retry
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        if error != nil {
+                            retryLoading()
                         }
                     }
             }
         }
+        .padding(.horizontal)
         .onAppear {
-            isLoading = true
-            // Start loading
-            SDWebImageManager.shared.loadImage(
-                with: gifURL,
-                options: [],
-                progress: nil
-            ) { (image, data, error, cacheType, finished, url) in
-                isLoading = false
-                if let error = error {
-                    self.error = error
-                    print("DEBUG: Failed to load GIF: \(error.localizedDescription)")
-                } else if finished {
-                    print("DEBUG: Successfully loaded GIF from: \(url?.absoluteString ?? "")")
-                }
+            startLoading()
+        }
+    }
+    
+    // MARK: - Subviews
+    private var errorView: some View {
+        VStack(spacing: Layout.spacing) {
+            Image(systemName: "figure.run.circle")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: Layout.iconSize, height: Layout.iconSize)
+                .foregroundColor(.gray)
+            
+            Text(error?.localizedDescription ?? "Failed to load")
+                .font(.callout) // At least 11pt as per guidelines
+                .foregroundColor(.red)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            
+            Button(action: retryLoading) {
+                Text("Tap to retry")
+                    .foregroundColor(.blue)
+                    .padding()
+                    // Ensure minimum tap target size
+                    .frame(minWidth: Layout.minimumTapTarget, 
+                           minHeight: Layout.minimumTapTarget)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground).opacity(0.9))
+        .cornerRadius(Layout.cornerRadius)
+    }
+    
+    // MARK: - Methods
+    private func startLoading() {
+        isLoading = true
+        error = nil
+        
+        SDWebImageManager.shared.loadImage(
+            with: gifURL,
+            options: [.retryFailed, .fromCacheOnly],
+            progress: nil
+        ) { (image, data, error, cacheType, finished, url) in
+            isLoading = false
+            if let error = error {
+                self.error = error
+                print("DEBUG: Failed to load GIF: \(error.localizedDescription)")
+            } else if finished {
+                print("DEBUG: Successfully loaded GIF from \(cacheType): \(url?.absoluteString ?? "")")
+            }
+        }
+    }
+    
+    private func retryLoading() {
+        startLoading()
     }
 }
 
